@@ -15,6 +15,6 @@ jobs:
           jq .comment.body $GITHUB_EVENT_PATH
           cat $GITHUB_EVENT_PATH
       - name: Check if /qa was in comment
-        if:  contains(github.event.issue_comment.body, '/qa')
         uses: actions/checkout@v1
+        if:  contains(github.event.issue_comment.body, '/qa')
         run: echo Build stuff NOW
