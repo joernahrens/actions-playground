@@ -28,4 +28,4 @@ jobs:
           git checkout $SHA
           echo "=========="
           echo "=========="
-          git log --oneline
+          git log -1
