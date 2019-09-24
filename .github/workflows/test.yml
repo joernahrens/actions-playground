@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-18.04
     name: Check event bla
     steps:
+      - uses: actions/checkout@v1
       - name: Echo event
         run: |
           echo $GITHUB_EVENT_PATH
           jq .comment.body $GITHUB_EVENT_PATH
           cat $GITHUB_EVENT_PATH
       - name: Check if /qa was in comment
-        uses: actions/checkout@v1
         if:  contains(github.event.issue_comment.body, '/qa')
         run: echo Build stuff NOW
