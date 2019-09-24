@@ -7,15 +7,21 @@ on:
 jobs:
   spitout:
     runs-on: ubuntu-18.04
-    name: Check event bla
+    name: Check event and maybe build
     steps:
-      # - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
       - name: Echo event
         run: |
           echo $GITHUB_EVENT_PATH
           jq .comment.body $GITHUB_EVENT_PATH
           cat $GITHUB_EVENT_PATH
       - name: Check if /qa was in comment
-      # contains(join(github.event.pull_request.labels.*.name), 'build-qa') != true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if:  contains(github.event.comment.body, '/qa') == true
-        run: echo Build stuff NOW
+        run: |
+          echo Build stuff NOW...
+          export PR_URL=`jq .issue.pull_request.url $GITHUB_EVENT_PATH`
+          echo $PR_URL
+          export SHA=`curl -X "Authorization: $GITHUB_TOKEN" $PR_URL | jq .head.sha`
+          echo $SHA
