@@ -25,5 +25,5 @@ jobs:
           echo $PR_URL
           export SHA=`curl -H "Authorization: $GITHUB_TOKEN" $PR_URL | jq -r .head.sha`
           echo $SHA
-          git co $SHA
+          git checkout $SHA
           git log --oneline
