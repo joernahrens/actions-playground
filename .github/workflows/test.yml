@@ -1,0 +1,16 @@
+name: Playground
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  spitout:
+    runs-on: ubuntu-18.04
+    name: Check event
+    steps:
+      - name: Check if build was in comment
+        if: contains(join(github.event.issue_comment.comment.body), 'build') != true
+        run: exit 1
+      - name: It was in
+        run: echo Success!
