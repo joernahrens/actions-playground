@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-18.04
     name: Check event bla
     steps:
-      - uses: actions/checkout@v1
+      # - uses: actions/checkout@v1
       - name: Echo event
         run: |
           echo $GITHUB_EVENT_PATH
@@ -17,5 +17,5 @@ jobs:
           cat $GITHUB_EVENT_PATH
       - name: Check if /qa was in comment
       # contains(join(github.event.pull_request.labels.*.name), 'build-qa') != true
-        if:  contains(join(github.event.issue_comment.*.body), '/qa') == true
+        if:  contains(join(github.event.issue_comment.body), '/qa') == true
         run: echo Build stuff NOW
