@@ -23,6 +23,7 @@ jobs:
           echo Build stuff NOW...
           export PR_URL=`jq -r .issue.pull_request.url $GITHUB_EVENT_PATH`
           echo $PR_URL
+          # Get PR object and extract latest PR branch commit
           export SHA=`curl -H "Authorization: $GITHUB_TOKEN" $PR_URL | jq -r .head.sha`
           echo $SHA
           git checkout $SHA
